@@ -44,7 +44,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin, onDemoMode })
   const createUserProfile = async (supabaseUser: any) => {
     try {
       // Check if user profile exists in our database
-      const { data: existingProfile, error: selectError } = await supabase
+      const { data: existingProfile } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', supabaseUser.id)

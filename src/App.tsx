@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { supabase } from './lib/supabase'
-import { GameBoard } from './components/GameBoard';
 import { MultiplayerGameBoard } from './components/MultiplayerGameBoard';
 import { MobileBettingPanel } from './components/MobileBettingPanel';
 import { Statistics } from './components/Statistics';
@@ -10,31 +9,7 @@ import { AccountPanel } from './components/AccountPanel';
 import { AutoBotPanel } from './components/AutoBotPanel';
 import { ConnectionStatus } from './components/ConnectionStatus';
 import { useGameSocket } from './hooks/useGameSocket';
-import { Crown, Menu, BarChart3, RefreshCw, Settings, Users, TrendingUp, Maximize, Volume2, VolumeX, ChevronLeft, ChevronRight, Plus, Minus, X } from 'lucide-react';
-
-function Page() {
-  const [todos, setTodos] = useState([])
-
-  useEffect(() => {
-   async function getTodos() {
-      const { data: todos } = await supabase.from('todos').select()
-
-      if (todos.length > 1) {
-        setTodos(todos)
-      }
-    }
-    
-    getTodos()
-  }, [])
-
-  return (
-    <div>
-      {todos.map((todo) => (
-        <li key={todo}>{todo}</li>
-      ))}
-    </div>
-  )
-}
+import { Menu, BarChart3, Settings, Users, Maximize, Volume2, VolumeX, ChevronLeft, ChevronRight, X } from 'lucide-react';
 
 interface GameHistory {
   id: number;
@@ -106,7 +81,7 @@ interface AutoBotConfig {
   stopOnLoss: boolean;
 }
 
-type GamePhase = 'waiting' | 'flying' | 'crashed';
+
 
 function App() {
   // Auth state
@@ -128,9 +103,6 @@ function App() {
   const [hasActiveBet, setHasActiveBet] = useState(false);
   const [currentBet, setCurrentBet] = useState(0);
   const [hasCashedOut, setHasCashedOut] = useState(false);
-  
-  // Multiplayer mode toggle
-  const [useMultiplayer, setUseMultiplayer] = useState(true);
   
   // WebSocket connection for multiplayer
   const { gameData, isConnected, connectionStatus, placeBet, cashOut, reconnect } = useGameSocket(
@@ -155,9 +127,9 @@ function App() {
 
   // Auto Bet States
   const [autoBetEnabled, setAutoBetEnabled] = useState(false);
-  const [autoBetAmount, setAutoBetAmount] = useState(5);
+  const [autoBetAmount] = useState(5);
   const [autoCashOut, setAutoCashOut] = useState(2.00);
-  const [autoCashOut50, setAutoCashOut50] = useState(1.50);
+  const [autoCashOut50] = useState(1.50);
   const [autoCashOutEnabled, setAutoCashOutEnabled] = useState(false);
   const [autoCashOut50Enabled, setAutoCashOut50Enabled] = useState(false);
 
@@ -169,7 +141,6 @@ function App() {
   
   // Settings
   const [soundEnabled, setSoundEnabled] = useState(true);
-  const [isFullscreen, setIsFullscreen] = useState(false);
   
   // Chat
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
@@ -461,10 +432,8 @@ function App() {
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen();
-      setIsFullscreen(true);
     } else {
       document.exitFullscreen();
-      setIsFullscreen(false);
     }
   };
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, CreditCard, Plus, History, TrendingUp, TrendingDown, LogOut, Wallet, Shield, Settings, DollarSign, ArrowDownToLine, Ban as Bank, User, Globe, Phone, CheckCircle, AlertCircle } from 'lucide-react';
+import { X, CreditCard, Plus, History, TrendingUp, TrendingDown, LogOut, Wallet, Shield, Settings, DollarSign, ArrowDownToLine, Ban as Bank, User, AlertCircle } from 'lucide-react';
 
 interface UserProfile {
   id: string;
@@ -153,18 +153,15 @@ export const AccountPanel: React.FC<AccountPanelProps> = ({
       if (!bankAccount) return;
 
       // Create withdrawal transaction
-      const transaction: Transaction = {
-        id: Date.now().toString(),
-        type: 'withdrawal',
+      // Create withdrawal transaction (to be used by parent component)
+      const transactionData = {
         amount: withdrawalAmount,
-        method: `${bankAccount.bankName} **** ${bankAccount.accountNumber.slice(-4)}`,
-        status: 'pending',
-        timestamp: new Date()
+        method: `${bankAccount.bankName} **** ${bankAccount.accountNumber.slice(-4)}`
       };
 
       // Call parent withdrawal handler if provided
       if (onWithdrawal) {
-        onWithdrawal(withdrawalAmount, `${bankAccount.bankName} **** ${bankAccount.accountNumber.slice(-4)}`);
+        onWithdrawal(transactionData.amount, transactionData.method);
       }
 
       // In a real app, this would be handled by the parent component
