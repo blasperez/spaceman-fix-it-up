@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Rocket, Play, Loader2 } from 'lucide-react';
-import { supabase } from '../../utils/supabase';
+import { supabase } from '../lib/supabase';
 
 interface LoginScreenProps {
   onLogin: (user: any) => void;
@@ -45,7 +45,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin, onDemoMode })
     try {
       // Check if user profile exists in our database
       const { data: existingProfile, error: selectError } = await supabase
-        .from('user_profiles')
+        .from('profiles')
         .select('*')
         .eq('id', supabaseUser.id)
         .single();
@@ -99,7 +99,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin, onDemoMode })
         };
 
         const { error } = await supabase
-          .from('user_profiles')
+          .from('profiles')
           .insert([newProfile]);
 
         if (error) {

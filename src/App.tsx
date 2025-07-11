@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { supabase } from '../utils/supabase'
+import { supabase } from './lib/supabase'
 import { GameBoard } from './components/GameBoard';
 import { MultiplayerGameBoard } from './components/MultiplayerGameBoard';
 import { MobileBettingPanel } from './components/MobileBettingPanel';
