@@ -1,73 +1,105 @@
-# Welcome to your Lovable project
+# 🚀 Spaceman - Crash Game
 
-## Project info
+Un emocionante juego de crash estilo "Spaceman" construido con React, TypeScript y Tailwind CSS.
 
-**URL**: https://lovable.dev/projects/fd6b34ba-ad69-4146-846b-e39c3e6643d2
+## ✨ Características
 
-## How can I edit this code?
+- **Juego de Crash**: Mecánica clásica de crash con multiplicadores dinámicos
+- **Responsive Design**: Optimizado para móvil y desktop
+- **Auto Betting Bot**: Sistema de apuestas automáticas con múltiples estrategias
+- **Autenticación**: Sistema de login con OAuth y modo demo
+- **Estadísticas**: Historial completo de juegos y estadísticas
+- **Chat en vivo**: Sistema de chat para interacción social
+- **Efectos visuales**: Animaciones y efectos de partículas
 
-There are several ways of editing your application.
+## 🎮 Cómo Jugar
 
-**Use Lovable**
+1. **Iniciar sesión**: Usa OAuth (Google, Facebook, Twitter) o modo demo
+2. **Apostar**: Selecciona tu monto de apuesta antes del despegue
+3. **Volar**: Observa cómo el multiplicador aumenta mientras el spaceman vuela
+4. **Retirar**: Haz cash out antes de que se estrelle para ganar
+5. **Ganar**: Tu apuesta se multiplica por el valor al momento de retirar
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/fd6b34ba-ad69-4146-846b-e39c3e6643d2) and start prompting.
+## 🤖 Auto Bot
 
-Changes made via Lovable will be committed automatically to this repo.
+El sistema de auto betting incluye:
 
-**Use your preferred IDE**
+- **Estrategias**: Fixed, Martingale, Fibonacci
+- **Auto Cash Out**: Retiro automático en multiplicador específico
+- **Límites**: Control de pérdidas máximas, ganancias máximas y rondas
+- **Estadísticas**: Seguimiento en tiempo real del rendimiento
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🛠️ Tecnologías
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- **React 18** con TypeScript
+- **Tailwind CSS** para estilos
+- **Lucide React** para iconos
+- **Vite** como bundler
+- **ESLint** para linting
 
-Follow these steps:
+## 🚀 Instalación y Desarrollo
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+```bash
+# Clonar repositorio
+git clone <repository-url>
+cd spaceman-crash-game
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Instalar dependencias
+npm install
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Ejecutar en desarrollo
 npm run dev
+
+# Build para producción
+npm run build
 ```
 
-**Edit a file directly in GitHub**
+## 📱 Características Móviles
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- **Touch-friendly**: Controles optimizados para dispositivos táctiles
+- **Orientación adaptable**: Funciona en portrait y landscape
+- **Interfaz móvil**: Diseño específico para pantallas pequeñas
+- **Gestos táctiles**: Interacciones naturales en móvil
 
-**Use GitHub Codespaces**
+## 🎯 Características del Juego
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Sistema de Crash
+- Algoritmo balanceado con edge de casa del 4%
+- Distribución realista de multiplicadores
+- Efectos visuales y sonoros inmersivos
 
-## What technologies are used for this project?
+### Auto Betting
+- **Fixed**: Apuesta fija cada ronda
+- **Martingale**: Dobla la apuesta después de cada pérdida
+- **Fibonacci**: Sigue la secuencia de Fibonacci
 
-This project is built with:
+### Controles Avanzados
+- Auto cash out en multiplicador específico
+- 50% auto cash out para gestión de riesgo
+- Límites configurables de pérdida y ganancia
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 🎨 Diseño
 
-## How can I deploy this project?
+- **Tema espacial**: Diseño inmersivo con efectos de estrellas y partículas
+- **Gradientes modernos**: Paleta de colores atractiva
+- **Animaciones fluidas**: Transiciones y efectos suaves
+- **Tipografía clara**: Legibilidad optimizada
 
-Simply open [Lovable](https://lovable.dev/projects/fd6b34ba-ad69-4146-846b-e39c3e6643d2) and click on Share -> Publish.
+## 📊 Estadísticas
 
-## Can I connect a custom domain to my Lovable project?
+- Historial completo de juegos
+- Tasa de victorias y multiplicador máximo
+- Ganancias netas y total apostado
+- Multiplicadores recientes
 
-Yes, you can!
+## 🔧 Configuración
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+El juego funciona completamente en el frontend sin necesidad de configuración adicional. Para características avanzadas como autenticación real y multijugador, consulta los archivos de configuración incluidos.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## 📄 Licencia
+
+MIT License - ver archivo LICENSE para detalles.
+
+---
+
+¡Disfruta jugando Spaceman! 🚀✨
