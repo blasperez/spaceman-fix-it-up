@@ -118,12 +118,8 @@ const EnhancedGameBoard: React.FC<EnhancedGameBoardProps> = ({
 
   const quickBetAmounts = [1, 5, 10, 25];
 
-  const getMultiplierColor = (mult: number) => {
-    if (mult < 1.5) return 'text-green-400';
-    if (mult < 2) return 'text-yellow-400';
-    if (mult < 5) return 'text-orange-400';
-    return 'text-red-400';
-  };
+  // Siempre amarillo para coincidir con el diseño de referencia
+  const multiplierTextColor = 'text-yellow-400';
 
   const getGameStatusText = () => {
     switch (gamePhase) {
@@ -141,7 +137,21 @@ const EnhancedGameBoard: React.FC<EnhancedGameBoardProps> = ({
   };
 
   return (
-    <div className="relative w-full h-screen bg-gradient-to-b from-purple-900 via-purple-800 to-purple-900 overflow-hidden">
+    <div className="relative w-full h-screen bg-gradient-to-b from-purple-900 via-purple-800 to-purple-900 overflow-hidden space-background">
+      {/* Space Background Elements */}
+      <div className="stars"></div>
+      <div className="planet planet-1"></div>
+      <div className="planet planet-2"></div>
+      <div className="planet planet-3"></div>
+      <div className="spaceship"></div>
+      <div className="meteor"></div>
+      <div className="meteor"></div>
+      <div className="meteor"></div>
+      <div className="meteor"></div>
+      <div className="meteor"></div>
+      <div className="nebula"></div>
+      <div className="nebula"></div>
+
       {/* Stars background */}
       {stars.map((star, index) => (
         <div
@@ -174,7 +184,7 @@ const EnhancedGameBoard: React.FC<EnhancedGameBoardProps> = ({
             <div className="absolute inset-2 rounded-full bg-gradient-to-br from-cyan-300 to-blue-500 shadow-inner">
               <div className="absolute inset-4 rounded-full bg-gradient-to-br from-white/20 to-transparent">
                 <div className="flex items-center justify-center h-full">
-                  <span className={`text-5xl font-bold drop-shadow-lg ${getMultiplierColor(multiplier)}`}>
+                  <span className={`text-5xl font-extrabold drop-shadow-lg ${multiplierTextColor}`}> 
                     {multiplier.toFixed(2)}x
                   </span>
                 </div>
@@ -200,7 +210,7 @@ const EnhancedGameBoard: React.FC<EnhancedGameBoardProps> = ({
           </div>
         </div>
 
-        {/* Spaceman */}
+        {/* FIXED: Use PNG spaceman from public folder */}
         <div
           className="absolute transition-all duration-100 ease-linear z-20"
           style={{
@@ -209,8 +219,15 @@ const EnhancedGameBoard: React.FC<EnhancedGameBoardProps> = ({
             transform: 'translate(-50%, -50%)'
           }}
         >
-          <div className="text-6xl animate-bounce" style={{ animationDuration: '2s' }}>
-            🚀
+          <div className="w-16 h-16 flex items-center justify-center">
+            <img 
+              src="/png-png-urbanbrush-13297 copy.png" 
+              alt="Spaceman"
+              className="w-full h-full object-contain"
+              style={{
+                filter: gamePhase === 'flying' ? 'brightness(1.3) saturate(1.3) drop-shadow(0 0 15px rgba(255,165,0,0.7))' : 'none'
+              }}
+            />
           </div>
         </div>
 
@@ -218,7 +235,7 @@ const EnhancedGameBoard: React.FC<EnhancedGameBoardProps> = ({
         {trail.map((point, index) => (
           <div
             key={index}
-            className="absolute w-2 h-2 bg-orange-400 rounded-full"
+            className="absolute w-2 h-1 bg-yellow-400 rounded-full"
             style={{
               left: `${point.x}%`,
               top: `${point.y}%`,
