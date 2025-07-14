@@ -111,7 +111,7 @@ function GameApp() {
   const [currentBet, setCurrentBet] = useState(0);
   const [hasCashedOut, setHasCashedOut] = useState(false);
   const [betLocked, setBetLocked] = useState(false);
-  const [nextRoundBet, setNextRoundBet] = useState<number | null>(null); // For betting on next round
+  // Removed nextRoundBet - no longer allowing betting on next round
   
   // WebSocket connection for multiplayer
   const { gameData, isConnected, connectionStatus, placeBet, cashOut, reconnect } = useGameSocket(
@@ -330,7 +330,6 @@ function GameApp() {
         setCurrentBet(0);
         setHasCashedOut(false);
         setBetLocked(false);
-        setNextRoundBet(null);
       }
     });
 
@@ -419,34 +418,11 @@ function GameApp() {
   // FIXED: Reset bet state when game phase changes with next round betting
   useEffect(() => {
     if (gameData.gameState.phase === 'waiting' && gameData.gameState.countdown <= 20 && gameData.gameState.countdown > 0) {
-      // Handle next round bet
-      if (nextRoundBet && nextRoundBet <= balance && !hasActiveBet && !betLocked) {
-        const safeBetAmount = Math.min(nextRoundBet, balance);
-        
-        setBetLocked(true);
-        placeBet(safeBetAmount);
-        setBalance(prev => prev - safeBetAmount);
-        setCurrentBet(safeBetAmount);
-        setHasActiveBet(true);
-        setHasCashedOut(false);
-        setNextRoundBet(null);
-        
-        setChatMessages(prev => [...prev, {
-          id: Date.now(),
-          username: user?.name || 'Jugador',
-          message: `🚀 Apuesta automática de ${safeBetAmount.toFixed(0)} monedas para la nueva ronda`,
-          timestamp: new Date(),
-          type: 'user'
-        }]);
-        
-        setTimeout(() => setBetLocked(false), 1000);
-      } else {
-        // Reset bet state for new round
-        setHasActiveBet(false);
-        setCurrentBet(0);
-        setHasCashedOut(false);
-        setBetLocked(false);
-      }
+      // Reset bet state for new round (removed next round betting logic)
+      setHasActiveBet(false);
+      setCurrentBet(0);
+      setHasCashedOut(false);
+      setBetLocked(false);
     } else if (gameData.gameState.phase === 'crashed') {
       // Handle crash - lose bet if not cashed out
       if (hasActiveBet && !hasCashedOut) {
@@ -478,7 +454,7 @@ function GameApp() {
         setBetLocked(false);
       }, 2000);
     }
-  }, [gameData.gameState.phase, gameData.gameState.crashPoint, hasActiveBet, hasCashedOut, currentBet, user?.name, nextRoundBet, balance, betLocked, placeBet]);
+  }, [gameData.gameState.phase, gameData.gameState.crashPoint, hasActiveBet, hasCashedOut, currentBet, user?.name, balance, betLocked, placeBet]);
 
   // Auto cash out logic for multiplayer
   useEffect(() => {
@@ -855,16 +831,7 @@ function GameApp() {
           </div>
         </div>
 
-        {/* Next Round Bet Indicator */}
-        {nextRoundBet && (
-          <div className="absolute top-32 left-1/2 transform -translate-x-1/2 z-40">
-            <div className="bg-blue-500/80 backdrop-blur-md border border-blue-400/30 rounded-xl px-4 py-2">
-              <div className="text-white text-sm font-medium">
-                ⏳ Próxima ronda: {nextRoundBet.toFixed(0)} monedas
-              </div>
-            </div>
-          </div>
-        )}
+        {/* Removed Next Round Bet Indicator */}
 
         {/* NEW Mobile Betting Panel */}
         <BettingPanel
@@ -950,9 +917,10 @@ function GameApp() {
 
         {/* Account Panel */}
         {showAccountPanel && (
-          <AccountPanel
-            isOpen={showAccountPanel}
+          <AccountPanel 
+            isOpen={showAccountPanel} 
             onClose={() => setShowAccountPanel(false)}
+            onShowStripeCheckout={() => setShowStripeCheckout(true)}
           />
         )}
 
@@ -1066,15 +1034,7 @@ function GameApp() {
         <SubscriptionStatus />
       </div>
 
-      {/* Next Round Bet Indicator */}
-      {nextRoundBet && (
-        <div className="absolute left-4 top-1/3 z-40">
-          <div className="bg-blue-500/80 backdrop-blur-md border border-blue-400/30 rounded-xl p-3">
-            <div className="text-white/70 text-xs">Próxima Ronda</div>
-            <div className="text-white font-bold">{nextRoundBet.toFixed(0)} monedas</div>
-          </div>
-        </div>
-      )}
+      {/* Removed Next Round Bet Indicator - Desktop */}
 
       {/* Chat Panel - Desktop */}
       {showChat && (
@@ -1172,9 +1132,7 @@ function GameApp() {
                   : 'bg-white/20 cursor-not-allowed'
               }`}
             >
-              {canCashOut ? 'COBRAR' : 
-               gameData.gameState.phase === 'flying' && !hasActiveBet ? 'PRÓXIMA RONDA' : 
-               'APOSTAR'}
+              {canCashOut ? 'CASH OUT' : 'APOSTAR'}
             </button>
             
             <div className="text-white text-lg font-bold">
@@ -1229,12 +1187,13 @@ function GameApp() {
       )}
 
       {/* Account Panel */}
-      {showAccountPanel && (
-        <AccountPanel
-          isOpen={showAccountPanel}
-          onClose={() => setShowAccountPanel(false)}
-        />
-      )}
+        {showAccountPanel && (
+          <AccountPanel 
+            isOpen={showAccountPanel} 
+            onClose={() => setShowAccountPanel(false)}
+            onShowStripeCheckout={() => setShowStripeCheckout(true)}
+          />
+        )}
 
       {/* Stripe Checkout */}
       {showStripeCheckout && (
