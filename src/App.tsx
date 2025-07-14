@@ -15,7 +15,7 @@ import { SubscriptionStatus } from './components/SubscriptionStatus';
 import { useGameSocket } from './hooks/useGameSocket';
 import { Menu, BarChart3, Settings, Users, Maximize, Volume2, VolumeX, X, ChevronLeft, ChevronRight, CreditCard } from 'lucide-react';
 import { MultiplayerGameBoard } from './components/MultiplayerGameBoard';
-import { MobileBettingPanel } from './components/MobileBettingPanel';
+import { BettingPanel } from './components/BettingPanel';
 
 interface GameHistory {
   id: number;
@@ -755,7 +755,6 @@ function GameApp() {
                 />
                 <div className="text-left">
                   <div className="text-white text-xs font-medium">{balance.toFixed(0)} monedas</div>
-                  {amount}
                 </div>
               </button>
             </div>
@@ -1019,22 +1018,23 @@ function GameApp() {
             >
               <CreditCard size={16} className="text-green-400" />
             </button>
-                Balance: {balance.toFixed(0)} monedas
+            <button 
               onClick={() => setShowChat(!showChat)}
               className="p-2 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-lg transition-colors"
-              {canCashOut ? (
+            >
               <Users size={16} className="text-white" />
             </button>
-                    Win: {currentWin.toFixed(0)} monedas
+            <button 
               onClick={() => setSoundEnabled(!soundEnabled)}
               className={`p-2 backdrop-blur-md border border-white/20 rounded-lg transition-colors ${
                 soundEnabled 
-                    className="px-8 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-bold text-lg transition-colors"
+                  ? 'bg-green-500/20 hover:bg-green-500/30' 
+                  : 'bg-white/10 hover:bg-white/20'
               }`}
             >
-                  className="px-8 py-3 bg-blue-600 hover:bg-blue-500 disabled:bg-gray-500 text-white rounded-lg font-bold text-lg transition-colors"
+              {soundEnabled ? (
                 <Volume2 size={16} className="text-green-400" />
-                  APOSTAR
+              ) : (
                 <VolumeX size={16} className="text-red-400" />
               )}
             </button>
